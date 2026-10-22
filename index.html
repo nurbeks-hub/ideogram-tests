@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ideogram на деле — тест 23.10.2026</title>
+<meta name="description" content="Ideogram 4.5 и Ideogram Vector 1.0 на семи бизнес-задачах: локализация, ремастер логотипов, линейки упаковки, мерч, вывески, тату, печать. Около 300 генераций, цифры дрейфа, SVG для скачивания.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8FA; --ink:#1A1D23; --muted:#5B6270; --rule:#D9DDE3;
+  --cyan:#0096D6; --magenta:#D4006E; --yellow:#F2C200;
+  --ok:var(--cyan); --part:var(--yellow); --no:var(--magenta);
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Golos Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:24px}
+h1,h2,h3{font-family:Unbounded,sans-serif;line-height:1.08;margin:0}
+h1{font-weight:900;font-size:clamp(40px,7.4vw,92px);letter-spacing:-.02em}
+h2{font-weight:700;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.01em}
+h3{font-weight:700;font-size:20px}
+p{margin:0 0 1em;max-width:68ch}
+.lede{font-size:20px;color:var(--muted);max-width:60ch}
+
+/* hero: the localization proof strip is the one loud thing on the page */
+.hero{padding-top:56px}
+.hero h1 span{display:block}
+.hero .lede{margin-top:24px}
+.strip{margin:44px 0 0;overflow-x:auto;scrollbar-width:thin;background:var(--ink);padding:18px 0 14px}
+.strip ol{list-style:none;margin:0;padding:0 24px;display:flex;gap:12px;width:max-content}
+.strip li{width:190px;flex:none}
+.strip img{border-radius:3px}
+.strip small{display:block;color:#C9CED6;font-size:13px;margin-top:6px}
+.strip-note{color:var(--muted);font-size:14px;margin-top:10px;margin-bottom:0}
+
+/* registration mark used as section anchor */
+.reg{width:22px;height:22px;flex:none;position:relative}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--ink)}
+.reg::before{left:10px;top:0;width:2px;height:22px}
+.reg::after{top:10px;left:0;height:2px;width:22px}
+.reg i{position:absolute;inset:4px;border:2px solid var(--ink);border-radius:50%}
+
+section{padding-top:88px}
+.sec-head{display:flex;gap:16px;align-items:center;margin-bottom:28px}
+
+/* verdicts */
+.verdicts{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.verdicts li{display:grid;grid-template-columns:150px 1fr 1.2fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.verdicts a{font-weight:600}
+.mark{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.mark::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--c)}
+.ok{--c:var(--ok)} .part{--c:var(--part)} .no{--c:var(--no)}
+.verdicts p{margin:0;color:var(--muted)}
+.legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* use case block */
+.case{border-top:2px solid var(--ink);padding-top:22px}
+.case-top{display:grid;grid-template-columns:1fr 280px;gap:32px;align-items:start}
+.case h2{margin:10px 0 16px}
+.facts{border-left:4px solid var(--c);padding:4px 0 4px 16px;font-size:15px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0 0 10px;font-weight:600}
+.sell{background:#fff;border:1px solid var(--rule);padding:18px 20px;margin:22px 0 0;max-width:72ch}
+.sell b{display:block;margin-bottom:4px}
+
+/* figures with crop marks */
+.grid{display:grid;gap:18px;margin-top:28px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)} .g6{grid-template-columns:repeat(6,1fr)}
+figure{margin:0;position:relative}
+figure .crop{position:relative;padding:10px;background:#fff;border:1px solid var(--rule)}
+figure .crop::before,figure .crop::after{content:"";position:absolute;width:10px;height:10px;border:0 solid var(--muted)}
+figure .crop::before{top:-6px;left:-6px;border-top-width:1px;border-left-width:1px}
+figure .crop::after{bottom:-6px;right:-6px;border-bottom-width:1px;border-right-width:1px}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.45}
+figcaption b{color:var(--ink);font-weight:600}
+.flag{color:var(--magenta);font-weight:600}
+
+/* before/after slider */
+.cmp{position:relative;overflow:hidden;background:#fff;border:1px solid var(--rule);touch-action:pan-y}
+.cmp img{width:100%}
+.cmp .top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p,50%)) 0 0)}
+.cmp .top img{height:100%;object-fit:cover}
+.cmp .bar{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:var(--ink);pointer-events:none}
+.cmp .bar::after{content:"";position:absolute;top:50%;left:-9px;width:20px;height:20px;border-radius:50%;background:var(--ink);transform:translateY(-50%)}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp-labels{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:8px}
+
+/* numbers table */
+table{border-collapse:collapse;width:100%;font-size:15px;margin-top:22px}
+th,td{text-align:left;padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--muted)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl{overflow-x:auto}
+
+details{border-top:1px solid var(--rule);padding:14px 0}
+details summary{cursor:pointer;font-weight:600}
+ul.plain{padding-left:20px;max-width:70ch} ul.plain li{margin-bottom:6px}
+
+footer{margin-top:110px;background:var(--ink);color:#DDE1E7;padding:48px 0 60px;font-size:15px}
+footer a{color:#fff}
+footer p{max-width:72ch}
+
+@media (max-width:900px){
+  .case-top{grid-template-columns:1fr}
+  .verdicts li{grid-template-columns:1fr;gap:6px}
+  .g4,.g6{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .wrap{padding-inline:16px}
+  .strip ol{padding:0 16px}
+  .g2,.g3{grid-template-columns:1fr}
+  section{padding-top:64px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <h1><span>Ideogram</span><span>на деле</span></h1>
+  <p class="lede">Мы проверили Ideogram 4.5 и новый Ideogram Vector 1.0 на семи задачах, за которые бизнес платит деньги. Около 300 генераций, рядом для сравнения GPT Image 2.5. Ниже — что работает, что нет и сколько стоит.</p>
+</header>
+
+<div class="strip" aria-label="Один баннер, переведённый на 11 языков">
+  <ol>
+    <li><img src="img/UA_L_base.jpg" alt="Исходный баннер на английском" loading="eager"><small>Исходник, EN</small></li>
+    <li><img src="img/UB_L_es.jpg" alt="Испанский" loading="lazy"><small>ES · 89,6% пикселей не тронуто</small></li>
+    <li><img src="img/UB_L_de.jpg" alt="Немецкий" loading="lazy"><small>DE · 92,7%</small></li>
+    <li><img src="img/UB_L_fr.jpg" alt="Французский" loading="lazy"><small>FR · 91,1%</small></li>
+    <li><img src="img/UB_L_ru.jpg" alt="Русский" loading="lazy"><small>RU · 92,2%</small></li>
+    <li><img src="img/UB_L_kk.jpg" alt="Казахский" loading="lazy"><small>KK · 89,2% · ошибки в буквах</small></li>
+    <li><img src="img/UB_L_tr.jpg" alt="Турецкий" loading="lazy"><small>TR · 92,0%</small></li>
+    <li><img src="img/UB_L_ar.jpg" alt="Арабский" loading="lazy"><small>AR · 91,1%</small></li>
+    <li><img src="img/UB_L_ja.jpg" alt="Японский" loading="lazy"><small>JA · 90,5%</small></li>
+    <li><img src="img/UB_L_zh.jpg" alt="Китайский" loading="lazy"><small>ZH · 88,2%</small></li>
+    <li><img src="img/UB_L_ko.jpg" alt="Корейский" loading="lazy"><small>KO · 90,5%</small></li>
+    <li><img src="img/UB_L_hi.jpg" alt="Хинди" loading="lazy"><small>HI · 91,3%</small></li>
+  </ol>
+</div>
+<p class="wrap strip-note">Один баннер, 11 языков, по одной правке Ideogram 4.5 на каждый. Кроссовок, фон и вёрстка остаются на месте. Листайте вбок.</p>
+
+<main>
+
+<section class="wrap" id="itog">
+  <div class="sec-head"><span class="reg" aria-hidden="true"><i></i></span><h2>Итог по задачам</h2></div>
+  <ul class="verdicts">
+    <li><span class="mark ok">Работает</span><a href="#lokalizaciya">Локализация креативов</a><p>11 языков без перерисовки. Казахские буквы ломает.</p></li>
+    <li><span class="mark ok">Работает</span><a href="#logo">Ремастер логотипов</a><p>Мыльное фото вывески → чистый лого → лёгкий SVG.</p></li>
+    <li><span class="mark ok">Работает</span><a href="#upakovka">Линейка упаковки</a><p>12 вкусов из одной этикетки, вёрстка не плывёт.</p></li>
+    <li><span class="mark ok">Работает</span><a href="#merch">Мерч, лазер, вышивка</a><p>Маскот → линия в один цвет → SVG из 21 контура.</p></li>
+    <li><span class="mark ok">Работает</span><a href="#tatu">Тату-трафареты</a><p>Карандашный набросок → чистый трафарет в векторе.</p></li>
+    <li><span class="mark part">Частично</span><a href="#pechat">Аниме и арт в печать</a><p>Края резкие на любом размере, мелкие детали упрощаются.</p></li>
+    <li><span class="mark no">Не работает</span><a href="#vyveski">Новая вывеска на фото фасада</a><p>Вывеска выходит мелкой, цвет из макета теряется.</p></li>
+  </ul>
+  <div class="legend"><span class="mark ok">можно продавать</span><span class="mark part">с оговорками</span><span class="mark no">пока нет</span></div>
+</section>
+
+<!-- 1 -->
+<section class="wrap" id="lokalizaciya">
+  <div class="case" style="--c:var(--ok)">
+    <div class="case-top">
+      <div>
+        <span class="mark ok">Работает</span>
+        <h2>Локализация креативов</h2>
+        <p>Берём готовый баннер и просим поменять только текст. Ideogram 4.5 пишет на латинице, кириллице, арабском, японском, китайском, корейском и хинди. Около 90% пикселей остаются бит в бит, так что меняется только сам текст. GPT Image 2.5 тоже переводит правильно, но перерисовывает всю картинку: у него не тронуто лишь 69–71%.</p>
+        <p><span class="flag">Казахский — слабое место.</span> Ideogram пишет «ЖУГІР» вместо «ЖҮГІР» и «Жазгы» вместо «Жазғы», а в «жеңілдік» ставит ї вместо і. GPT пишет все три слова правильно. Тексты на остальных языках носитель не проверял.</p>
+      </div>
+      <dl class="facts">
+        <dt>Цена</dt><dd>6,25 кредита Higgsfield за язык</dd>
+        <dt>Время</dt><dd>~60 с на язык, параллельно</dd>
+        <dt>Не тронуто пикселей</dt><dd>Ideogram 88–93% · GPT 69–83%</dd>
+      </dl>
+    </div>
+    <div class="grid g2">
+      <figure>
+        <div class="cmp" style="--p:50%">
+          <img src="img/UB_L_ja.jpg" alt="Японская версия баннера">
+          <div class="top"><img src="img/UA_L_base.jpg" alt="Английский исходник"></div>
+          <div class="bar"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить исходник и японскую версию">
+        </div>
+        <div class="cmp-labels"><span>Исходник</span><span>Японский, Ideogram</span></div>
+      </figure>
+      <figure>
+        <div class="cmp" style="--p:50%">
+          <img src="img/UB_L_ja_gpt.jpg" alt="Японская версия от GPT Image 2.5">
+          <div class="top"><img src="img/UA_L_base.jpg" alt="Английский исходник"></div>
+          <div class="bar"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить исходник и японскую версию GPT">
+        </div>
+        <div class="cmp-labels"><span>Исходник</span><span>Японский, GPT 2.5</span></div>
+      </figure>
+    </div>
+    <div class="grid g2">
+      <figure><div class="crop"><img src="img/UB_L_kk.jpg" alt="Казахский, Ideogram" loading="lazy"></div><figcaption><b>Ideogram:</b> «ЖУГІР», «Жазгы», «жеңілдїк» — три ошибки в спецбуквах.</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_L_kk_gpt.jpg" alt="Казахский, GPT" loading="lazy"></div><figcaption><b>GPT 2.5:</b> все три слова написаны правильно, но кроссовок и фон перерисованы.</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>Агентствам и e-com: один мастер-креатив → пакет на 10 рынков за минуты. Казахский, а возможно и другие языки со спецбуквами, прогонять через GPT или проверять носителем.</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="wrap" id="logo">
+  <div class="case" style="--c:var(--ok)">
+    <div class="case-top">
+      <div>
+        <span class="mark ok">Работает</span>
+        <h2>Ремастер логотипов малого бизнеса</h2>
+        <p>У многих кафе, барбершопов и фудтраков логотип есть только на вывеске. Мы взяли 5 фото вывесок и испортили их до 480 пикселей и JPEG с качеством 35, как будто сфоткали на улице. Дальше одна правка Ideogram 4.5 («восстанови лого на белом») и Vectorizer.</p>
+        <p>Если векторизовать фото сразу, получается мусор: 430–800 путей и сотни цветов вместе с кирпичами. После чистки остаются 18–50 путей и 3–4 цвета, файл в 10–20 раз легче. Надписи и эмблемы сохранились во всех пяти случаях.</p>
+      </div>
+      <dl class="facts">
+        <dt>Цена</dt><dd>6,25 кредита + $0,10 за SVG</dd>
+        <dt>SVG из фото напрямую</dt><dd>223–321 КБ, 429–797 путей</dd>
+        <dt>SVG после чистки</dt><dd>10–21 КБ, 18–50 путей (простые лого)</dd>
+      </dl>
+    </div>
+    <div class="grid g3">
+      <figure><div class="crop"><img src="img/UD_LG_joes.jpg" alt="Мыльное фото вывески Joe's Diner" loading="lazy"></div><figcaption><b>Вход:</b> фото 480 px, JPEG q35</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZD_joes_1.jpg" alt="SVG прямо из фото" loading="lazy"></div><figcaption><b>Vectorizer напрямую:</b> 526 путей, 222 цвета, кирпичи тоже в векторе</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZC_joes_1.jpg" alt="SVG после чистки" loading="lazy"></div><figcaption><b>Ideogram 4.5 → Vectorizer:</b> 50 путей, 3 цвета, 21 КБ</figcaption></figure>
+    </div>
+    <div class="grid g4">
+      <figure><div class="crop"><img src="img/UD_LG_bakery.jpg" alt="Фото витрины пекарни" loading="lazy"></div><figcaption>Надпись на стекле</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZC_bakery_1.jpg" alt="Чистый SVG пекарни" loading="lazy"></div><figcaption>Скрипт и колосья</figcaption></figure>
+      <figure><div class="crop"><img src="img/UD_LG_tacos.jpg" alt="Фото фудтрака" loading="lazy"></div><figcaption>Борт фудтрака под углом</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZC_tacos_1.jpg" alt="Чистый SVG Taco Loco" loading="lazy"></div><figcaption>Персонаж и надпись</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>«Пришлите фото вывески — получите SVG и мини-брендбук». Массовая услуга для малого бизнеса, печатников и рекламщиков. Текст в SVG всегда в кривых, так что под правки надписей шрифт надо подбирать руками.</div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="wrap" id="upakovka">
+  <div class="case" style="--c:var(--ok)">
+    <div class="case-top">
+      <div>
+        <span class="mark ok">Работает</span>
+        <h2>Линейка упаковки из одной этикетки</h2>
+        <p>Одна этикетка комбучи и 12 правок, каждая от исходника: новый вкус, новые фрукты, новая палитра. Логотип, вёрстка и мелкий текст на месте, у 11 из 12 не тронуто 89–92% пикселей. Все 13 этикеток векторизуются за $0,10 каждая.</p>
+        <p><span class="flag">Один промах из 12:</span> в «Blackberry Sage» модель перекрасила логотип в тёмно-синий, хотя его просили не трогать.</p>
+      </div>
+      <dl class="facts">
+        <dt>Цена</dt><dd>6,25 кредита + $0,10 за SVG</dd>
+        <dt>Не тронуто пикселей</dt><dd>88,7–91,9% (11 из 12) · 79,2% у промаха</dd>
+        <dt>SVG этикетки</dt><dd>80–190 КБ, тексты в кривых</dd>
+      </dl>
+    </div>
+    <div class="grid g4">
+      <figure><div class="crop"><img src="img/UA_P_label.jpg" alt="Исходная этикетка" loading="lazy"></div><figcaption><b>Исходник</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_01.jpg" alt="Blueberry Basil" loading="lazy"></div><figcaption>Blueberry Basil</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_02.jpg" alt="Mango Chili" loading="lazy"></div><figcaption>Mango Chili</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_03.jpg" alt="Hibiscus Rose" loading="lazy"></div><figcaption>Hibiscus Rose</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_06.jpg" alt="Cherry Vanilla" loading="lazy"></div><figcaption>Cherry Vanilla</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_07.jpg" alt="Pineapple Turmeric" loading="lazy"></div><figcaption>Pineapple Turmeric — длинное слово влезло</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_10.jpg" alt="Yuzu Matcha" loading="lazy"></div><figcaption>Yuzu Matcha</figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_P_08.jpg" alt="Blackberry Sage с перекрашенным логотипом" loading="lazy"></div><figcaption><span class="flag">Blackberry Sage:</span> логотип перекрашен</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>FMCG и крафтовым брендам: «один дизайн — вся линейка вкусов, сразу в SVG для типографии». Каждый вариант проверять глазами: примерно один из 12 надо перегенерировать.</div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="wrap" id="merch">
+  <div class="case" style="--c:var(--ok)">
+    <div class="case-top">
+      <div>
+        <span class="mark ok">Работает</span>
+        <h2>Мерч: лазер, вышивка, стикеры</h2>
+        <p>Из одного маскота делаем две производственные версии: чёрную линию для лазерной гравировки и плоскую версию в 5 цветов для вышивки. Обе векторизуем в режиме simple. Получаются SVG из 21 и 26 контуров. Цветной стикер векторизуется в 103 пути с одним градиентом.</p>
+        <p>В растре вокруг медведя остаётся серый ореол фона, но simple-режим его отбрасывает, и в SVG фон чистый. Резку на реальном плоттере не проверяли.</p>
+      </div>
+      <dl class="facts">
+        <dt>Лазер</dt><dd>21 путь, 4 цвета, 10 КБ</dd>
+        <dt>Вышивка</dt><dd>26 путей, 13 цветов, 12 КБ</dd>
+        <dt>Цена</dt><dd>6,25 кредита + $0,10 на версию</dd>
+      </dl>
+    </div>
+    <div class="grid g3">
+      <figure><div class="crop"><img src="img/UA_M_mascot.jpg" alt="Исходный маскот" loading="lazy"></div><figcaption><b>Исходник:</b> стикер, растр</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZM_laser_1.jpg" alt="SVG для лазера" loading="lazy"></div><figcaption><b>Для лазера:</b> одна линия, SVG</figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZM_embroid_1.jpg" alt="SVG для вышивки" loading="lazy"></div><figcaption><b>Для вышивки:</b> плоские цвета, SVG</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>Принт-шопам и продавцам на Etsy: «персонаж → комплект файлов под стикеры, вышивку, гравировку». Перед продакшном прогнать один файл через софт станка.</div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="wrap" id="tatu">
+  <div class="case" style="--c:var(--ok)">
+    <div class="case-top">
+      <div>
+        <span class="mark ok">Работает</span>
+        <h2>Тату: набросок → трафарет</h2>
+        <p>5 фото карандашных набросков с вспомогательными линиями, разводами и тенью от телефона. Ideogram 4.5 убирает мусор и сводит рисунок в чистую линию, Vectorizer переводит её в SVG. Дизайн и пропорции сохранились во всех пяти.</p>
+        <p>Если векторизовать набросок напрямую, в SVG попадают пятна бумаги и тени: 74–795 путей и до 1,1 МБ. После чистки выходит 3–184 пути, 1–69 КБ и 2–7 цветов.</p>
+      </div>
+      <dl class="facts">
+        <dt>Напрямую</dt><dd>122–1145 КБ, сотни цветов</dd>
+        <dt>После чистки</dt><dd>1–69 КБ, 2–7 цветов</dd>
+        <dt>Цена</dt><dd>6,25 кредита + $0,10</dd>
+      </dl>
+    </div>
+    <div class="grid g4">
+      <figure><div class="crop"><img src="img/UA_T_koi.jpg" alt="Набросок карпа кои" loading="lazy"></div><figcaption><b>Набросок</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZT_koi_1.jpg" alt="Трафарет карпа кои, SVG" loading="lazy"></div><figcaption><b>Трафарет, SVG:</b> 184 пути, 4 цвета</figcaption></figure>
+      <figure><div class="crop"><img src="img/UA_T_wolf.jpg" alt="Набросок волка" loading="lazy"></div><figcaption><b>Набросок</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZT_wolf_1.jpg" alt="Трафарет волка, SVG" loading="lazy"></div><figcaption><b>Трафарет, SVG:</b> 37 путей, 3 цвета</figcaption></figure>
+      <figure><div class="crop"><img src="img/UA_T_rose.jpg" alt="Набросок кинжала с розой" loading="lazy"></div><figcaption><b>Набросок</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZT_rose_1.jpg" alt="Трафарет кинжала с розой" loading="lazy"></div><figcaption><b>Трафарет, SVG:</b> 54 пути</figcaption></figure>
+      <figure><div class="crop"><img src="img/UA_T_snake.jpg" alt="Набросок змеи" loading="lazy"></div><figcaption><b>Набросок</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_ZT_snake_1.jpg" alt="Трафарет змеи" loading="lazy"></div><figcaption><b>Трафарет, SVG:</b> 99 путей</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>Тату-студиям: «эскиз клиента с салфетки → трафарет для принтера за минуту». Мастер всё равно проверяет линию, но рутина обводки уходит.</div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="wrap" id="pechat">
+  <div class="case" style="--c:var(--part)">
+    <div class="case-top">
+      <div>
+        <span class="mark part">С оговорками</span>
+        <h2>Аниме и арт в печать</h2>
+        <p>Cel-кадр 2048 px мы векторизовали и увеличили в 8 раз, это около 16 000 px, плакат примерно в 2 метра. У растра края мылятся. У SVG линии остаются резкими на любом размере, но мелкое упрощается: блик в глазу и тонкие пряди превращаются в плоские пятна.</p>
+        <p>Для плакатов и баннеров, которые смотрят издалека, это подходит. Для артбука, который рассматривают вблизи, — на грани.</p>
+      </div>
+      <dl class="facts">
+        <dt>SVG кадра</dt><dd>466 путей, 284 КБ</dd>
+        <dt>Цена</dt><dd>$0,10</dd>
+      </dl>
+    </div>
+    <div class="grid g2">
+      <figure><div class="crop"><img src="img/print_raster.jpg" alt="Растр, увеличение в 8 раз" loading="lazy"></div><figcaption><b>Растр ×8:</b> мыло</figcaption></figure>
+      <figure><div class="crop"><img src="img/print_svg.jpg" alt="SVG, увеличение в 8 раз" loading="lazy"></div><figcaption><b>SVG ×8:</b> резко, но блик и пряди упрощены</figcaption></figure>
+    </div>
+    <div class="sell"><b>Как продавать</b>Студиям и авторам: «кадр → вектор для печати мерча и постеров любого размера». Артбуки и коллекционную печать не обещать.</div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="wrap" id="vyveski">
+  <div class="case" style="--c:var(--no)">
+    <div class="case-top">
+      <div>
+        <span class="mark no">Пока нет</span>
+        <h2>Новая вывеска на фото фасада</h2>
+        <p>Идея была такая: макет вывески из Vector 1.0, потом Ideogram 4.5 ставит её на фото реального фасада для согласования с клиентом. Фасад действительно не трогается, но сама вывеска выходит мелкой и нечитаемой. Чёрно-золотой макет барбершопа превратился в бежевую табличку. Ни в одном из трёх случаев это нельзя показывать клиенту.</p>
+      </div>
+      <dl class="facts">
+        <dt>Попыток</dt><dd>3 фасада, по 1 дублю</dd>
+        <dt>Что можно попробовать</dt><dd>Маска + крупный план, другая модель</dd>
+      </dl>
+    </div>
+    <div class="grid g3">
+      <figure><div class="crop"><img src="img/UA_F_barber.jpg" alt="Фасад барбершопа до" loading="lazy"></div><figcaption><b>Фасад до</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UV_SG_barber_1.jpg" alt="Макет вывески из Vector 1.0" loading="lazy"></div><figcaption><b>Макет из Vector 1.0</b></figcaption></figure>
+      <figure><div class="crop"><img src="img/UB_FS_barber.jpg" alt="Фасад после" loading="lazy"></div><figcaption><span class="flag">После:</span> вывеска мелкая, цвет потерян</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- base: Ideogram 4.5 -->
+<section class="wrap" id="ideogram45">
+  <div class="sec-head"><span class="reg" aria-hidden="true"><i></i></span><h2>Ideogram 4.5: настройки и характер</h2></div>
+  <p class="lede">Базовый прогон: около 100 картинок на всех настройках, 13 жанров, правки, цепочка правок и аниме. Рядом GPT Image 2.5 на тех же промптах.</p>
+
+  <div class="tbl"><table>
+    <tr><th>Что проверяли</th><th>Вывод</th></tr>
+    <tr><td>quality low / medium / high</td><td>Low (1 кредит) почти не хуже high (6,25 кредита). Very_low при правке оставляет призрак старого текста.</td></tr>
+    <tr><td>magic prompt off / on</td><td>On переписывает задумку: добавляет шляпу, сигарету, лишние строки текста. Зато с ним чище мелкий текст в титрах постера. По умолчанию — off.</td></tr>
+    <tr><td>aspect_ratio auto</td><td>Всегда выдаёт квадрат, даже для постера. Формат лучше задавать явно.</td></tr>
+    <tr><td>batch 4</td><td>Четыре варианта почти одинаковы по композиции. Для разнообразия меняйте промпт, а не сид.</td></tr>
+    <tr><td>1K vs 2K</td><td>Цена одинаковая, 2K детальнее. Часть форматов требует 2K.</td></tr>
+    <tr><td>Генерация с нуля</td><td>Постеры, инфографика, стикеры и живопись у GPT 2.5 богаче. Мелкий текст у Ideogram без magic prompt превращается в абракадабру.</td></tr>
+    <tr><td>Точечные правки</td><td>Главная сила. Замена надписи, цвета, перевод, ночь вместо дня — всё остальное бит в бит. Добавить шляпу: не тронуто 95% пикселей.</td></tr>
+    <tr><td>6 правок подряд</td><td>Ideogram не плывёт (83% не тронуто к шестому шагу), но пропускает команды: собаку не добавил, кружку дал не в руку. GPT выполнил всё, но лицо и текстура пережарены (не тронуто 17%).</td></tr>
+    <tr><td>Аниме</td><td>Правка рта и позы держит линию лучше GPT. Модельный лист и сцены по нему у GPT кинематографичнее.</td></tr>
+  </table></div>
+
+  <div class="grid g2">
+    <figure>
+      <div class="cmp" style="--p:50%">
+        <img src="img/F_mouth_shout.jpg" alt="Аниме-кадр с открытым ртом">
+        <div class="top"><img src="img/C_ideo_key_chroma.jpg" alt="Исходный аниме-кадр"></div>
+        <div class="bar"></div>
+        <input type="range" min="0" max="100" value="50" aria-label="Сравнить исходный кадр и правку рта">
+      </div>
+      <div class="cmp-labels"><span>Ключ</span><span>Правка рта, Ideogram: 99,6% не тронуто</span></div>
+    </figure>
+    <figure>
+      <div class="cmp" style="--p:50%">
+        <img src="img/E_photo_night.jpg" alt="Фото, переосвещённое в ночь">
+        <div class="top"><img src="img/A_photo_high_mpoff.jpg" alt="Исходное фото"></div>
+        <div class="bar"></div>
+        <input type="range" min="0" max="100" value="50" aria-label="Сравнить день и ночь">
+      </div>
+      <div class="cmp-labels"><span>Исходник</span><span>Переосвещение в ночь</span></div>
+    </figure>
+  </div>
+
+  <h3 style="margin-top:44px">6 правок подряд: Ideogram сверху, GPT 2.5 снизу</h3>
+  <div class="grid g6">
+    <figure><img src="img/D_ideo_1.jpg" alt="Ideogram шаг 1" loading="lazy"><figcaption>1 · куртка</figcaption></figure>
+    <figure><img src="img/D_ideo_2.jpg" alt="Ideogram шаг 2" loading="lazy"><figcaption><span class="flag">2 · собаки нет</span></figcaption></figure>
+    <figure><img src="img/D_ideo_3.jpg" alt="Ideogram шаг 3" loading="lazy"><figcaption>3 · пикап</figcaption></figure>
+    <figure><img src="img/D_ideo_4.jpg" alt="Ideogram шаг 4" loading="lazy"><figcaption><span class="flag">4 · кружка не в руке</span></figcaption></figure>
+    <figure><img src="img/D_ideo_5.jpg" alt="Ideogram шаг 5" loading="lazy"><figcaption>5 · снег еле виден</figcaption></figure>
+    <figure><img src="img/D_ideo_6.jpg" alt="Ideogram шаг 6" loading="lazy"><figcaption>6 · 83% не тронуто</figcaption></figure>
+    <figure><img src="img/D_gpt_1.jpg" alt="GPT шаг 1" loading="lazy"><figcaption>1 · куртка</figcaption></figure>
+    <figure><img src="img/D_gpt_2.jpg" alt="GPT шаг 2" loading="lazy"><figcaption>2 · собака</figcaption></figure>
+    <figure><img src="img/D_gpt_3.jpg" alt="GPT шаг 3" loading="lazy"><figcaption>3 · пикап</figcaption></figure>
+    <figure><img src="img/D_gpt_4.jpg" alt="GPT шаг 4" loading="lazy"><figcaption>4 · кружка</figcaption></figure>
+    <figure><img src="img/D_gpt_5.jpg" alt="GPT шаг 5" loading="lazy"><figcaption>5 · снег</figcaption></figure>
+    <figure><img src="img/D_gpt_6.jpg" alt="GPT шаг 6" loading="lazy"><figcaption><span class="flag">6 · лицо пережарено, 17%</span></figcaption></figure>
+  </div>
+
+  <details>
+    <summary>Все жанры: magic off, magic on, GPT 2.5</summary>
+    <div class="grid g3">
+      <figure><img src="img/B_ui_off.jpg" alt="UI, Ideogram magic off" loading="lazy"><figcaption>UI · Ideogram, magic off</figcaption></figure>
+      <figure><img src="img/B_ui_on.jpg" alt="UI, Ideogram magic on" loading="lazy"><figcaption>UI · magic on, подписи перепутаны</figcaption></figure>
+      <figure><img src="img/G_ui.jpg" alt="UI, GPT" loading="lazy"><figcaption>UI · GPT 2.5</figcaption></figure>
+      <figure><img src="img/B_infographic_off.jpg" alt="Инфографика, Ideogram off" loading="lazy"><figcaption>Инфографика · Ideogram off</figcaption></figure>
+      <figure><img src="img/B_infographic_on.jpg" alt="Инфографика, Ideogram on" loading="lazy"><figcaption>Инфографика · on</figcaption></figure>
+      <figure><img src="img/G_infographic.jpg" alt="Инфографика, GPT" loading="lazy"><figcaption>Инфографика · GPT 2.5</figcaption></figure>
+      <figure><img src="img/B_sticker_off.jpg" alt="Стикеры, Ideogram off" loading="lazy"><figcaption>Стикеры · Ideogram off</figcaption></figure>
+      <figure><img src="img/B_sticker_on.jpg" alt="Стикеры, Ideogram on" loading="lazy"><figcaption>Стикеры · on</figcaption></figure>
+      <figure><img src="img/G_sticker.jpg" alt="Стикеры, GPT" loading="lazy"><figcaption>Стикеры · GPT 2.5</figcaption></figure>
+      <figure><img src="img/B_cyrillic_off.jpg" alt="Кириллица, Ideogram off" loading="lazy"><figcaption>Кириллица · Ideogram off</figcaption></figure>
+      <figure><img src="img/B_cyrillic_on.jpg" alt="Кириллица, Ideogram on" loading="lazy"><figcaption>Кириллица · on, дописал строку</figcaption></figure>
+      <figure><img src="img/G_cyrillic.jpg" alt="Кириллица, GPT" loading="lazy"><figcaption>Кириллица · GPT 2.5</figcaption></figure>
+      <figure><img src="img/A_photo_high_mpoff.jpg" alt="Фото, Ideogram off" loading="lazy"><figcaption>Фото · Ideogram off</figcaption></figure>
+      <figure><img src="img/A_photo_high_mpon.jpg" alt="Фото, Ideogram on" loading="lazy"><figcaption>Фото · on, добавил шляпу</figcaption></figure>
+      <figure><img src="img/G_photo.jpg" alt="Фото, GPT" loading="lazy"><figcaption>Фото · GPT 2.5</figcaption></figure>
+      <figure><img src="img/A_anime_high_mpoff.jpg" alt="Аниме, Ideogram off" loading="lazy"><figcaption>Аниме · Ideogram off</figcaption></figure>
+      <figure><img src="img/A_anime_high_mpon.jpg" alt="Аниме, Ideogram on" loading="lazy"><figcaption>Аниме · on</figcaption></figure>
+      <figure><img src="img/G_anime.jpg" alt="Аниме, GPT" loading="lazy"><figcaption>Аниме · GPT 2.5</figcaption></figure>
+    </div>
+  </details>
+  <details>
+    <summary>Персонаж по модельному листу</summary>
+    <div class="grid g2">
+      <figure><img src="img/S_sheet_ideo.jpg" alt="Модельный лист Ideogram" loading="lazy"><figcaption>Лист · Ideogram: потерял одно из трёх лиц</figcaption></figure>
+      <figure><img src="img/S_sheet_gpt.jpg" alt="Модельный лист GPT" loading="lazy"><figcaption>Лист · GPT 2.5</figcaption></figure>
+      <figure><img src="img/C_ideo_scene_run.jpg" alt="Сцена бега, Ideogram" loading="lazy"><figcaption>Сцена по листу · Ideogram</figcaption></figure>
+      <figure><img src="img/C_gpt_scene_run.jpg" alt="Сцена бега, GPT" loading="lazy"><figcaption>Сцена по листу · GPT 2.5</figcaption></figure>
+      <figure><img src="img/F_pose_punch.jpg" alt="Смена позы, Ideogram" loading="lazy"><figcaption>Новая поза · Ideogram, линия как в ключе</figcaption></figure>
+      <figure><img src="img/F_pose_punch_gpt.jpg" alt="Смена позы, GPT" loading="lazy"><figcaption>Новая поза · GPT 2.5, крупнее и мягче</figcaption></figure>
+    </div>
+  </details>
+</section>
+
+<!-- base: Vector -->
+<section class="wrap" id="vector">
+  <div class="sec-head"><span class="reg" aria-hidden="true"><i></i></span><h2>Vector 1.0: что внутри SVG</h2></div>
+  <p class="lede">Вышел 22.10.2026. Два режима: SVG из текста ($0,13–0,20) и векторизация картинки ($0,10). Тестировали через официальный API Ideogram.</p>
+  <div class="tbl"><table>
+    <tr><th>Что проверяли</th><th>Вывод</th></tr>
+    <tr><td>Векторизация</td><td>Лого, стикеры, постеры и cel-аниме выходят почти один в один. Фото превращается в постеризацию: 1,4 МБ, 1028 путей.</td></tr>
+    <tr><td>SVG из текста, простое</td><td>Лого, вордмарк, маскот и плакат — чисто, 3–20 КБ.</td></tr>
+    <tr><td>SVG из текста, сложное</td><td>Инфографика путает номера шагов и пишет «Growing» вместо «Brewing». В сетке иконок 15 вместо 12, с дублями. Паттерн выходит рамкой, а не повтором.</td></tr>
+    <tr><td>Low / medium / high</td><td>Для лого почти одинаково, разница в цене $0,13 и $0,20.</td></tr>
+    <tr><td>Структура файла</td><td>Плоский список путей: 0 групп, 0 слоёв. Текст всегда в кривых. Обещанные «отдельные слои» API пока не выдаёт, это написано в их документации.</td></tr>
+    <tr><td>Simple против default</td><td>Simple отбрасывает пятна бумаги и ореолы фона: тату-трафарет и лазерный медведь выходят в 2–4 цвета.</td></tr>
+  </table></div>
+  <div class="grid g4">
+    <figure><div class="crop"><img src="img/VB_V_logo_high_1.jpg" alt="Лого из текста" loading="lazy"></div><figcaption>Лого из текста · 18 путей</figcaption></figure>
+    <figure><div class="crop"><img src="img/VB_V_wordmark_high_2.jpg" alt="Вордмарк" loading="lazy"></div><figcaption>Вордмарк · 9 путей</figcaption></figure>
+    <figure><div class="crop"><img src="img/VB_V_character_high_1.jpg" alt="Маскот" loading="lazy"></div><figcaption>Маскот · 318 путей</figcaption></figure>
+    <figure><div class="crop"><img src="img/VB_V_infographic_high_1.jpg" alt="Инфографика с ошибками" loading="lazy"></div><figcaption><span class="flag">Инфографика:</span> шаги перепутаны</figcaption></figure>
+  </div>
+</section>
+
+<section class="wrap" id="metod">
+  <div class="sec-head"><span class="reg" aria-hidden="true"><i></i></span><h2>Как тестировали</h2></div>
+  <ul class="plain">
+    <li>Ideogram 4.5 через Higgsfield CLI (<code>ideogram_4_5</code>, high, 2K, magic prompt off, если не сказано другое). GPT Image 2.5 — high, 2K.</li>
+    <li>Vector 1.0 через официальный API Ideogram. Всего на вектор ушло около $8,70.</li>
+    <li>Все исходники сгенерированы: бренды, вывески, этикетки и наброски выдуманы, реальных компаний здесь нет.</li>
+    <li>«Не тронуто пикселей» — доля пикселей, где разница с исходником не больше 6 из 255 по каждому каналу.</li>
+    <li>Что не проверено: тексты на иностранных языках носителем, импорт SVG в Figma и Illustrator, резка на реальном плоттере и лазере.</li>
+    <li>В Higgsfield Recraft V4.1 в режиме vector сейчас падает со статусом «nsfw» на любом запросе, поэтому в сравнение он не попал.</li>
+  </ul>
+  <p><a href="https://github.com/nurbeks-hub/ideogram-tests/tree/main/svg">Все 60 SVG из теста</a> лежат в репозитории.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Тест провели 23 октября 2026 года, на следующий день после выхода Vector 1.0. Ideogram, GPT Image и Higgsfield — товарные знаки их владельцев.</p>
+    <p><a href="https://github.com/nurbeks-hub/ideogram-tests">Исходники страницы на GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.cmp').forEach(function (c) {
+  var r = c.querySelector('input');
+  r.addEventListener('input', function () { c.style.setProperty('--p', r.value + '%'); });
+});
+</script>
+</body>
+</html>
